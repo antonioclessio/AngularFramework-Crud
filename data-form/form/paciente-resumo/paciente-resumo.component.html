@@ -1,0 +1,301 @@
+<div class="resumo">
+  <div class="dados">
+
+    <div class="dash-row">
+      <div class="card bg-light dados-basicos">
+        <div class="card-body">
+          <fieldset>
+            <legend>Dados de Cadastro</legend>
+            <div>
+              <!-- <div class="row">
+                  <div class="col-md-4 card-text"><label>Código</label></div>
+                  <div class="col-md-4 card-text"><span class="badge badge-info">{{ dataSource?.CodigoFormatado  }}</span></div>
+                  <div class="col-md-4 card-text"><span class="badge badge-warning pull-right" *ngIf="dataSource?.Avaliacao">Avaliação</span></div>
+              </div> -->
+    
+              <!-- <div class="row">
+                <div class="col-md-4 card-text"><label>Status</label></div>
+                <div class="col-md-8 card-text"><status [value]="dataSource?.Status" [description]="dataSource?.DescricaoStatus"></status></div>
+              </div> -->
+    
+              <contact-display
+                [dataSourceTelefone]="dataSource?.Pessoa?.Pessoa_Telefone"
+                [dataSourceEmail]="dataSource?.Pessoa?.Pessoa_Email"
+                [useEmail]="false">
+              </contact-display>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-row" style="flex-direction: column;">
+      <div class="card mb-1 text-white" style="height: 95px;" [ngClass]="{'bg-info': dataSourceDatasGerais?.DataUltimoAgendamento, 'bg-warning': !dataSourceDatasGerais?.DataUltimoAgendamento}">
+        <div class="card-body">
+          <fieldset>
+            <legend>Última Consulta</legend>
+            <div>
+              <div class="text-center">
+                <h6 *ngIf="dataSourceDatasGerais?.DataUltimoAgendamento">{{ dataSourceDatasGerais?.DataUltimoAgendamento | date:'dd/MM/yyyy HH:mm' }}</h6>
+                <h6 *ngIf="!dataSourceDatasGerais?.DataUltimoAgendamento" class="text-white">Cliente ainda não passou por nenhuma consulta</h6>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="card mb-1 text-white" style="height: 95px;" [ngClass]="{'bg-info': dataSourceDatasGerais?.DataProximoAgendamento, 'bg-danger': !dataSourceDatasGerais?.DataProximoAgendamento}">
+        <div class="card-body">
+          <fieldset>
+            <legend>Próxima Consulta</legend>
+            <div>
+              <div class="text-center">
+                <h6 *ngIf="dataSourceDatasGerais?.DataProximoAgendamento">{{ dataSourceDatasGerais?.DataProximoAgendamento | date:'dd/MM/yyyy HH:mm' }}</h6>
+                <h6 *ngIf="!dataSourceDatasGerais?.DataProximoAgendamento">Nenhum agendamento realizado</h6>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="card bg-success mb-1" style="height: 95px;" [ngClass]="{'bg-success text-white': dataSourceDatasGerais?.DataAtivacaoContrato, 'bg-light': !dataSourceDatasGerais?.DataAtivacaoContrato}">
+        <div class="card-body">
+          <fieldset>
+            <legend>Ativação do Contrato de Orto</legend>
+            <div>
+              <div class="text-center">
+                <h6 *ngIf="dataSourceDatasGerais?.DataAtivacaoContrato">{{ dataSourceDatasGerais?.DataAtivacaoContrato | date:'dd/MM/yyyy' }}</h6>
+                <h6 *ngIf="!dataSourceDatasGerais?.DataAtivacaoContrato">Cliente sem contrato</h6>
+              </div>
+              <div class="text-center">
+                <h6 *ngIf="dataSourceDatasGerais?.DataAtivacaoContrato">Em tratamento à {{ dataSourceDatasGerais?.TempoParaAtivacao }} meses(s)</h6>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="card bg-warning mb-1 text-white" style="height: 95px;">
+        <div class="card-body">
+          <fieldset>
+            <legend>Reinicios de Contrato</legend>
+            <div class="text-center">
+              <h4>{{ dataSourceDatasGerais?.TotalReinicios }}</h4>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="card bg-warning text-white" style="height: 95px;" [ngClass]="{'bg-danger': alertaParcelasGeradas === 1, 'bg-warning': alertaParcelasGeradas === 2, 'bg-success': alertaParcelasGeradas === 3}">
+        <div class="card-body">
+          <fieldset>
+            <legend>Parcelas geradas</legend>
+            <div class="text-center">
+              <h4>{{ totalParcelasGeradas }}</h4>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="painel">
+
+    <div class="dash-row">
+      <div class="widget-1">
+        <div class="card bg-light">
+          <div class="card-body">
+            <fieldset>
+              <legend>Frequência</legend>
+              <div [id]="'chartResumoFrequencia' + dataSource?.IdPaciente"></div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="widget-1">
+        <div class="card bg-light">
+          <div class="card-body">
+            <fieldset>
+              <legend>Ocorrência</legend>
+              <div [id]="'chartResumoOcorrencia' + dataSource?.IdPaciente"></div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="widget-1">
+        <div class="card bg-light">
+          <div class="card-body">
+            <fieldset>
+              <legend>Confiança de Frequência</legend>
+              <div [id]="'chartConfiabilidadeFrequencia' + dataSource?.IdPaciente"></div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-row">
+      <div class="widget-3">
+        <div class="card bg-light" style="height: 300px;">
+          <div class="card-body">
+            <fieldset>
+              <legend>Agenda / Frequência</legend>
+              <table class="table table-sm table-hover" style="height: calc(100% - 30px);">
+                <thead>
+                  <tr>
+                    <th style="width: 20%; text-align: center;">Data / Hora Agendamento</th>
+                    <th style="width: 20%; text-align: center;">Hora Chegada</th>
+                    <th style="width: 20%; text-align: center;">Hora Atendimento</th>
+                    <th style="width: 20%; text-align: center;">Frequência</th>
+                    <th style="width: 20%; text-align: center;">Ocorrência</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dataItem of dataSourceAgenda">
+                    <td style="width: 20%; text-align: center;">{{ dataItem.DataHoraAgendamento | date:'dd/MM/yy HH:mm' }}</td>
+                    <td style="width: 20%; text-align: center;">{{ dataItem.HoraChegada }}</td>
+                    <td style="width: 20%; text-align: center;">{{ dataItem.HoraAtendimento }}</td>
+                    <td style="width: 20%; text-align: left;">{{ dataItem.Frequencia }}</td>
+                    <td style="width: 20%; text-align: left;">{{ dataItem.Ocorrencia }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="dash-row">
+
+      <div class="widget-2">
+        <div class="card bg-light">
+          <div class="card-body">
+            <fieldset>
+              <legend>Financeiro</legend>
+              <div>
+                <table class="table table-sm table-hover">
+                  <thead>
+                    <tr>
+                      <th style="width: 8%; text-align: center;">Parcela</th>
+                      <th style="width: 12%; text-align: center;" title="Valor da parcela">Valor parce.</th>
+                      <th style="width: 12%; text-align: center;" title="Valor recebido">Valor receb.</th>
+                      <th style="width: 11%; text-align: center;" title="Saldo calculado do valor da parcela com o valor pago">Saldo</th>
+                      <th style="width: 15%; text-align: center;" title="Data de vencimento">Vencimento</th>
+                      <th style="width: 15%; text-align: center;" title="Data da realização do pagamento">Data Pgto</th>
+                      <th style="width: 10%; text-align: center;" title="Se o pagamento foi realizado com atraso">Atraso</th>
+                      <th style="width: 17%; text-align: center;">Tipo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let dataItem of dataSourceContaReceber_Pago_Detalhes">
+                      <td style="width: 8%; text-align: center;">{{ dataItem.Parcela }}</td>
+                      <td style="width: 12%; text-align: center;">{{ dataItem.ValorParcela | currency:'BRL' }}</td>
+                      <td style="width: 12%; text-align: center;">{{ dataItem.ValorPagamento | currency:'BRL' }}</td>
+                      <td style="width: 11%; text-align: center;">{{ dataItem.Saldo | currency:'BRL' }}</td>
+                      <td style="width: 15%; text-align: center;">{{ dataItem.DataVencimento | date:'dd/MM/yyyy' }}</td>
+                      <td style="width: 15%; text-align: center;">{{ dataItem.DataPagamento | date:'dd/MM/yyyy' }}</td>
+                      <td style="width: 10%; text-align: center;">{{ dataItem.PagoComAtraso | textenum }}</td>
+                      <td style="width: 17%">{{ dataItem.TipoPagamento | camelCase }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div class="widget-1">
+        <div class="card bg-light">
+          <div class="card-body">
+            <fieldset>
+              <legend>Confiança Financeira</legend>
+              <div [id]="'chartConfiabilidadeFinanceira' + dataSource?.IdPaciente"></div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="dash-row">
+      <div class="widget-3">
+        <div class="card bg-light" style="height: 300px;">
+          <div class="card-body">
+            <fieldset>
+              <legend>Satisfação</legend>
+              <table class="table table-sm table-hover" style="height: calc(100% - 30px);">
+                <thead>
+                  <tr>
+                    <th style="width: 10%">Data Cadastro</th>
+                    <th style="width: 90%">Satisfação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let dataItem of dataSourceSatisfacao">
+                    <td style="width: 10%">{{ dataItem.DataHoraCadastro | date:'dd/MM/yy HH:mm' }}</td>
+                    <td style="width: 90%">{{ dataItem.Satisfacao }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-row">
+      <div class="widget-3">
+        <div class="card bg-light" style="height: 300px;">
+          <div class="card-body">
+            <fieldset>
+              <legend>Prontuário</legend>
+              <table class="table table-sm table-hover" style="height: calc(100% - 30px);">
+                <thead>
+                  <tr>
+                    <th style="width: 10%">Data Cadastro</th>
+                    <th style="width: 90%">Satisfação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let dataItem of dataSourceSatisfacao">
+                    <td style="width: 10%">{{ dataItem.DataHoraCadastro | date:'dd/MM/yy HH:mm' }}</td>
+                    <td style="width: 90%">{{ dataItem.Satisfacao }}</td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-row">
+      <div class="widget-3">
+        <div class="card bg-light" style="height: 300px;">
+          <div class="card-body">
+            <fieldset>
+              <legend>Contratos</legend>
+              <table class="table table-sm table-hover" style="height: calc(100% - 30px);">
+                <thead>
+                  <tr>
+                    <th style="width: 10%">Data Cadastro</th>
+                    <th style="width: 90%">Satisfação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr *ngFor="let dataItem of dataSourceSatisfacao">
+                    <td style="width: 10%">{{ dataItem.DataHoraCadastro | date:'dd/MM/yy HH:mm' }}</td>
+                    <td style="width: 90%">{{ dataItem.Satisfacao }}</td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

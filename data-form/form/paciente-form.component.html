@@ -1,0 +1,24 @@
+<form [formGroup]="form" novalidate>
+    <content-switch-h [data]="dataSourceContentSwitch">
+        <div data-target-h="resumo">
+            <paciente-resumo
+                [data]="dataSource"
+                (satisfacao)="onSatisfacaoUpdate($event)">
+            </paciente-resumo>
+        </div>
+        <div data-target-h="dados">
+            <paciente-dados-basicos
+                [form]="form"
+                [codigo]="dataSource?.CodigoFormatado"
+                [idPaciente]="dataSource?.IdPaciente"
+                [dataSourceEmail]="dataSourceEmail"
+                [dataSourceTelefone]="dataSourceTelefone"
+                [endereco]="dataSourceEndereco"
+                [NomeProfissao]="dataSource?.NomeProfissao"
+                [NomePacienteIndicacao]="dataSource?.NomePacienteIndicacao"
+                (updateEmail)="onUpdateEmail($event)"
+                (updateTelefone)="onUpdateTelefone($event)">
+            </paciente-dados-basicos>
+        </div>
+    </content-switch-h>
+</form>

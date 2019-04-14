@@ -1,0 +1,34 @@
+<form [formGroup]="form">
+    <div class="row">
+        <div class="col-md-4">
+            <cl-input label="Código" formControlName="Codigo" name="Codigo" type="text"></cl-input>
+        </div>
+        <div class="col-md-8">
+            <cl-input label="Nome" formControlName="Nome" name="Nome" type="text"></cl-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <cl-input label="CPF" formControlName="CPF" name="CPF" type="cpf"></cl-input>
+        </div>
+        <div class="col-md-6">
+            <cl-input label="RG" formControlName="RG" name="RG" type="text"></cl-input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="custom-control custom-checkbox pull-right">
+                <input type="checkbox" class="custom-control-input" id="chkSomenteAvaliacao">
+                <label class="custom-control-label" for="chkSomenteAvaliacao">Somente avaliação</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="custom-control custom-checkbox pull-right">
+                <input type="checkbox" class="custom-control-input" id="chkInativos">
+                <label class="custom-control-label" for="chkInativos">Considerar inativos</label>
+            </div>
+        </div>
+    </div>
+</form>

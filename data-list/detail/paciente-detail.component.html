@@ -1,0 +1,48 @@
+<nav>
+    <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
+        <a class="nav-link active" data-toggle="tab" role="tab" aria-controls="dadosbasicos" aria-expanded="true" href="#dadosbasicos">
+            <i class="fa fa-user" aria-hidden="true" title="Dados básicos"></i>
+        </a>
+        <a class="nav-link" data-toggle="tab" role="tab" aria-controls="contato" aria-expanded="true" href="#contato">
+            <i class="fa fa-phone" aria-hidden="true" title="Contatos"></i>
+        </a>
+    </div>
+</nav>
+
+<div class="tab-content">
+    <!-- DADOS BÁSICOS -->
+    <div class="tab-pane fade show active" id="dadosbasicos" role="tabpanel" aria-labelledby="dadosbasicos-tab">
+        <div class="row">
+            <div class="col-md-12"><h6>{{ dataSource?.Nome | camelCase }}</h6></div>
+            <br/>
+            <br/>
+        </div>
+        <div class="row">
+            <div class="col-md-4 card-text"><label>Status</label></div>
+            <div class="col-md-8 card-text"><status [value]="dataSource?.Status" [description]="dataSource?.DescricaoStatus"></status></div>
+        </div> 
+    
+        <div class="row">
+            <div class="col-md-4 card-text"><label>Cadastro</label></div>
+            <div class="col-md-8 card-text"><span>{{ dataSource?.DataHoraCadastro | date:'dd/MM/yyyy HH:mm' }}</span></div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-4 card-text"><label>Nascimento</label></div>
+            <div class="col-md-8 card-text"><span>{{ dataSource?.DataNascimento | date:'dd/MM/yyyy' }}</span></div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-4 card-text"><label>CPF</label></div>
+            <div class="col-md-8 card-text"><span>{{ dataSource?.CPFFormatado }}</span></div>
+        </div>
+        <hr />
+
+        <address-display [dataSource]="dataSource?.LocalizacaoGeografica"></address-display>
+    </div>
+
+    <!-- CONTATO -->
+    <div class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">
+        <contact-display [dataSourceTelefone]="dataSource?.Telefones" [dataSourceEmail]="dataSource?.Emails"></contact-display>
+    </div>
+</div>

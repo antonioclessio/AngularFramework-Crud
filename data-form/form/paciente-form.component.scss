@@ -1,0 +1,16 @@
+div[data-target-h="dados"],
+div[data-target-h="resumo"],
+div[data-target-h="contrato"],
+div[data-target-h="financeiro"],
+div[data-target-h="satisfacao"],
+paciente-contrato,
+paciente-dados-basicos,
+paciente-financeiro,
+paciente-prontuario,
+paciente-satisfacao,
+paciente-resumo {
+    display: block;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
